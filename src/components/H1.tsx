@@ -6,7 +6,7 @@ function H1({
   className,
 }: {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }) {
   return (
     <h1
