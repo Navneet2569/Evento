@@ -1,8 +1,11 @@
 import { EventoEvent } from "@/lib/types";
 import React from "react";
 import EventCard from "./EventCard";
+import { getEvents } from "@/lib/utils";
 
-function EventsList({ events }: { events: EventoEvent[] }) {
+export default async function EventsList({ city }: { city: string }) {
+  const events = await getEvents(city);
+
   return (
     <section className="max-w-[1100px] flex flex-wrap gap-10 justify-center px-[20px]">
       {events.map((event) => (
@@ -11,5 +14,3 @@ function EventsList({ events }: { events: EventoEvent[] }) {
     </section>
   );
 }
-
-export default EventsList;
