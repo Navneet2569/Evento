@@ -1,6 +1,8 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { EventoEvent } from "@prisma/client";
+import prisma from "./db";
+import { notFound } from "next/navigation";
+import { unstable_cache } from "next/cache";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,25 +16,4 @@ export async function sleep(ms: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
-}
-
-export async function getEvents(city: string) {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`,
-    {
-      next: {
-        revalidate: 300,
-      },
-    }
-  );
-  const events: EventoEvent[] = await response.json();
-  return events;
-}
-
-export async function getEvent(slug: string) {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
-  const event: EventoEvent = await response.json();
-  return event;
 }
